@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Avaliação — Automação de Testes de Software</title>
+<style>
+:root{font-family:system-ui,"Segoe UI",sans-serif;color:#172e39;background:#102833}
+*{box-sizing:border-box}
+body{margin:0}
+main{max-width:1030px;margin:40px auto;background:#fffdf7;display:grid;grid-template-columns:32% 68%;border-radius:22px;overflow:hidden;box-shadow:0 15px 60px #0005}
+aside{background:#f5f0e8;padding:45px 33px}
+aside small{color:#006f6a;letter-spacing:.14em;font-weight:800}
+h1{font:normal 39px Georgia,serif;line-height:1.14}
+aside p{color:#5b6c75;line-height:1.7}
+section{padding:35px 45px}
+h2{margin:0 0 20px;font-size:22px}
+h3{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:#006f6a;border-bottom:1px solid #ddd;padding-bottom:9px;margin-top:24px}
+.row{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.triple{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+label{display:block;font-size:13px;font-weight:650;margin:14px 0 6px}
+input,select,textarea{font:inherit;width:100%;padding:11px;border-radius:8px;border:1px solid #ccd7d4;background:white}
+textarea{min-height:78px;resize:vertical}
+button{background:#006e69;color:white;border:none;border-radius:9px;padding:15px 23px;margin-top:18px;cursor:pointer;font-weight:700}
+button:hover{background:#004d4b}
+#feedbackResultado{display:none;background:#e5f5ed;padding:13px;border-radius:7px;margin-top:18px}
+#feedbackResultado.visible{display:block}
+footer{text-align:center;color:#b4c8c7;margin:25px}
+@media(max-width:790px){main{display:block;margin:16px}aside,section{padding:24px}.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+<aside><small>AP2 • ATIVIDADE 03</small><h1>Automação de Testes de Software</h1><p>Formulário acadêmico de avaliação da disciplina. Este HTML foi criado para uma atividade de automação com Selenium.</p><p><strong>Laboratório de Testes</strong></p></aside>
+<section>
+<h2>Compartilhe sua experiência</h2>
+<form id="formAvaliacao">
+<h3>01 — Identificação</h3>
+<div class="row">
+<div><label for="nome">Nome *</label><input id="nome" name="nome" required placeholder="Nome completo"></div>
+<div><label for="ra">RA *</label><input id="ra" name="ra" required placeholder="Registro acadêmico"></div>
+</div>
+<label>Data de nascimento — Dia / Mês / Ano *</label>
+<div class="triple">
+<select id="dia" name="dia" aria-label="Dia de nascimento" required><option value="">Dia</option></select>
+<select id="mes" name="mes" aria-label="Mês de nascimento" required><option value="">Mês</option></select>
+<select id="ano" name="ano" aria-label="Ano de nascimento" required><option value="">Ano</option></select>
+</div>
+<h3>02 — Curso e aproveitamento</h3>
+<div class="row">
+<div><label for="curso">Curso *</label><select id="curso" name="curso" required><option value="">Selecione</option><option value="ADS">Análise e Desenvolvimento de Sistemas</option><option value="SI">Sistemas de Informação</option></select></div>
+<div><label for="aproveitamento">Aproveitamento (0 a 10) *</label><select id="aproveitamento" name="aproveitamento" required><option value="">Selecione uma nota</option></select></div>
+</div>
+<h3>03 — Sua opinião</h3>
+<label for="sugestoes">Sugestões de melhoria para próximas turmas *</label>
+<textarea id="sugestoes" name="sugestoes" required></textarea>
+<label for="observacoes">Observações (opcional)</label>
+<textarea id="observacoes" name="observacoes"></textarea>
+<button id="enviarFeedback" type="submit">Enviar Feedback</button>
+<div id="feedbackResultado" role="status"></div>
+</form>
+</section>
+</main>
+<footer>AP2 — AUTOMAÇÃO DE TESTES DE SOFTWARE • Demonstração local, sem banco de dados</footer>
+<script>
+function preencherOpcoes(id,comeco,fim){const s=document.getElementById(id);for(let i=comeco;i<=fim;i++){const op=document.createElement("option");op.value=String(i);op.textContent=String(i).padStart(2,"0");s.appendChild(op)}}
+preencherOpcoes("dia",1,31);
+preencherOpcoes("mes",1,12);
+preencherOpcoes("ano",1950,2015);
+preencherOpcoes("aproveitamento",0,10);
+document.getElementById("formAvaliacao").addEventListener("submit",function(evento){
+ evento.preventDefault();
+ if(!this.reportValidity())return;
+ const dados=new FormData(this);
+ const aviso=document.getElementById("feedbackResultado");
+ aviso.textContent="Feedback enviado com sucesso (demonstração)! Obrigado, "+dados.get("nome")+". Curso: "+dados.get("curso")+"; aproveitamento: "+dados.get("aproveitamento")+"/10. Nenhum dado foi armazenado.";
+ aviso.classList.add("visible");
+});
+</script>
+</body>
+</html>
