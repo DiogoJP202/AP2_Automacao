@@ -1,4 +1,3 @@
-"""Item d: testes dos elementos web presentes no exercicio01.html."""
 import unittest
 from selenium.webdriver.common.by import By
 from ler_exercicio01 import CAMINHO_HTML, criar_navegador
