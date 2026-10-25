@@ -1,4 +1,3 @@
-"""Atende itens a, b e c: abrir HTML local e mostrar título + dois localizadores."""
 from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.common.by import By
